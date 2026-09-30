@@ -1,0 +1,279 @@
+@import "tailwindcss";
+
+/* =========================================================
+   SIPDUS — DESIGN SYSTEM
+   ========================================================= */
+
+:root {
+  --sipdus-black: #102329;
+  --sipdus-cyan: #08b9d1;
+  --sipdus-cyan-dark: #087f93;
+  --sipdus-cyan-soft: #dff7f9;
+
+  --sipdus-red: #ef4b55;
+  --sipdus-red-dark: #c9323c;
+  --sipdus-red-soft: #ffe5e7;
+
+  --sipdus-white: #ffffff;
+  --sipdus-gray: #f1f4f4;
+  --sipdus-gray-dark: #dce5e6;
+
+  --sipdus-text: #13272d;
+  --sipdus-muted: #60777d;
+
+  /* Escala controlada pelo menu de acessibilidade */
+  --font-scale: 1;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+
+  /*
+    O menu altera --font-scale.
+    Como Tailwind usa bastante rem, isso aumenta/reduz
+    grande parte da tipografia do site.
+  */
+  font-size: calc(16px * var(--font-scale));
+}
+
+body {
+  margin: 0;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  font-size: 1rem;
+
+  background: var(--sipdus-white);
+  color: var(--sipdus-text);
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--sipdus-cyan);
+  color: white;
+}
+
+/* =========================================================
+   ACESSIBILIDADE — FOCO
+   ========================================================= */
+
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--sipdus-cyan);
+  outline-offset: 4px;
+}
+
+/* =========================================================
+   CORES — VISÃO TÍPICA
+   ========================================================= */
+
+/*
+  IMPORTANTE:
+
+  O AccessibilityMenu adiciona as classes:
+
+  html.protanopia
+  html.deuteranopia
+  html.tritanopia
+
+  Portanto NÃO usamos body.protanopia.
+*/
+
+/* Protanopia */
+html.protanopia #site-content {
+  filter: url("#filter-protanopia");
+}
+
+/* Deuteranopia */
+html.deuteranopia #site-content {
+  filter: url("#filter-deuteranopia");
+}
+
+/* Tritanopia */
+html.tritanopia #site-content {
+  filter: url("#filter-tritanopia");
+}
+
+/* =========================================================
+   CLASSES SEMÂNTICAS
+   ========================================================= */
+
+.sipdus-text {
+  color: var(--sipdus-text);
+}
+
+.sipdus-muted {
+  color: var(--sipdus-muted);
+}
+
+.sipdus-surface {
+  background: var(--sipdus-white);
+}
+
+/* =========================================================
+   TAMANHO DA FONTE
+   ========================================================= */
+
+/*
+  Os níveis do menu são:
+
+  -3 = 0.82
+  -2 = 0.88
+  -1 = 0.94
+   0 = 1
+  +1 = 1.08
+  +2 = 1.16
+  +3 = 1.25
+  +4 = 1.35
+
+  O AccessibilityMenu altera --font-scale.
+  O html acima transforma isso em tamanho base.
+
+  Exemplo:
+  16px × 1.35 = 21.6px
+*/
+
+/*
+  Alguns elementos do projeto usam valores em px diretamente
+  (por exemplo text-[76px]). Para que títulos e textos maiores
+  também acompanhem a escala, fazemos uma adaptação específica.
+*/
+
+#site-content {
+  min-height: 100vh;
+}
+
+/*
+  Elementos textuais comuns.
+  Não usamos !important aqui para não destruir os estilos
+  específicos do Tailwind.
+*/
+
+#site-content p,
+#site-content li,
+#site-content a,
+#site-content button,
+#site-content label,
+#site-content input,
+#site-content textarea,
+#site-content select {
+  /*
+    Mantém a escala do tamanho base.
+  */
+  font-size: calc(1em * 1);
+}
+
+/* =========================================================
+   TÍTULOS
+   ========================================================= */
+
+/*
+  Títulos que utilizam valores fixos em px precisam de uma
+  pequena correção para acompanhar o tamanho escolhido.
+*/
+
+#site-content h1,
+#site-content h2,
+#site-content h3,
+#site-content h4,
+#site-content h5,
+#site-content h6 {
+  /*
+    A escala do html já influencia os valores em rem.
+    Aqui evitamos sobrescrever o tamanho definido pelo Tailwind.
+  */
+  line-height: inherit;
+}
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f4f4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #08b9d1;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #087f93;
+}
+
+/* =========================================================
+   RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 70px;
+  }
+
+  /*
+    Evita que textos muito grandes estourem a tela
+    em dispositivos menores.
+  */
+
+  body {
+    overflow-x: hidden;
+  }
+
+  #site-content {
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
