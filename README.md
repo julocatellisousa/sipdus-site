@@ -1,3 +1,7 @@
+Link para acesso do slide de apresentação: 
+link para slide de apresentação:
+https://canva.link/189ff6bp6e9tj1v
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
