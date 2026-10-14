@@ -17,7 +17,7 @@ const cards = [
   {
     icon: Mic,
     title: "Interação por voz",
-    text: "Um assistente pode responder perguntas e ampliar as formas de interação.",
+    text: "O dispositivo conta com microfone e alto-falante, e o aplicativo possui uma assistente virtual integrada.",
   },
   {
     icon: Eye,
@@ -26,7 +26,7 @@ const cards = [
   },
   {
     icon: Languages,
-    title: "Tradução para Libras",
+    title: "Apoio em Libras",
     text: "Integração com o VLibras para oferecer uma alternativa de tradução automática do conteúdo.",
   },
 ];
@@ -61,10 +61,7 @@ export default function Accessibility() {
             </h2>
 
             <p className="mt-7 max-w-[500px] text-base leading-7 text-white/75">
-              A evolução do SIPDUS passou a considerar
-              não apenas a medição, mas também a maneira
-              como diferentes pessoas acessam e
-              compreendem as informações.
+              A acessibilidade foi considerada no site, no dispositivo físico e no aplicativo, buscando ampliar as formas de interação com o projeto.
             </p>
 
           </div>

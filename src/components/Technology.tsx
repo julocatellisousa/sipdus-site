@@ -1,118 +1,161 @@
-import {
-  motion,
-} from "motion/react";
-
+import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   Cpu,
   HeartPulse,
-  Bluetooth,
-  Smartphone,
+  Mic,
+  Volume2,
+  ArrowRight,
 } from "lucide-react";
 
 const technologies = [
   {
-    icon: HeartPulse,
-    title: "MAX30102",
-    text: "Sensor óptico utilizado para obtenção de dados de frequência cardíaca e oximetria.",
-  },
-  {
+    name: "ESP32 com tela LVGL",
+    description:
+      "Microcontrolador responsável pelo controle do dispositivo e pela apresentação das informações na tela.",
+    image: "/images/components/esp32-lvgl.png",
     icon: Cpu,
-    title: "ESP32",
-    text: "Microcontrolador responsável pelo processamento e comunicação dos dados do protótipo.",
   },
   {
-    icon: Bluetooth,
-    title: "Bluetooth",
-    text: "Comunicação sem fio entre o dispositivo e o aplicativo.",
+    name: "Sensor MAX30102",
+    description:
+      "Sensor óptico utilizado para coletar sinais relacionados à frequência cardíaca e à saturação de oxigênio.",
+    image: "/images/components/max30102.png",
+    icon: HeartPulse,
   },
   {
-    icon: Smartphone,
-    title: "Aplicativo",
-    text: "Interface para apresentação e acompanhamento das informações coletadas.",
+    name: "Módulo de microfone GY-MAX4466",
+    description:
+      "Permite captar a voz do usuário para possibilitar interações por comando de voz.",
+    image: "/images/components/gy-max4466.png",
+    icon: Mic,
+  },
+  {
+    name: "Alto-falante",
+    description:
+      "Permite emitir respostas sonoras e fornecer retorno por áudio, contribuindo para a acessibilidade.",
+    image: "/images/components/alto-falante.png",
+    icon: Volume2,
   },
 ];
+
+function ComponentVisual({
+  image,
+  name,
+}: {
+  image: string;
+  name: string;
+}) {
+  const [imageError, setImageError] = useState(false);
+
+  return (
+    <div className="flex h-52 w-full items-center justify-center overflow-hidden rounded-2xl bg-slate-50 p-5">
+      {!imageError ? (
+        <img
+          src={image}
+          alt={name}
+          className="h-full w-full object-contain transition-transform duration-300 hover:scale-105"
+          onError={() => setImageError(true)}
+        />
+      ) : (
+        <div className="flex flex-col items-center gap-3 text-center text-slate-400">
+          <Cpu size={40} strokeWidth={1.5} />
+          <span className="text-sm">
+            Imagem não encontrada
+          </span>
+          <span className="text-xs">
+            Verifique o nome e a pasta do arquivo
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Technology() {
   return (
     <section
       id="tecnologia"
-      className="bg-[#f1f4f4] px-6 py-28 lg:px-10"
+      className="relative overflow-hidden bg-white px-6 py-20 md:px-12 lg:px-20"
     >
+      <div className="mx-auto max-w-7xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 max-w-3xl"
+        >
+          <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-cyan-50 px-4 py-2 text-sm font-semibold text-cyan-700">
+            <Cpu size={16} />
+            Tecnologia Sipdus
+          </span>
 
-      <div className="mx-auto max-w-[1280px]">
+          <h2 className="mb-5 text-3xl font-bold tracking-tight text-slate-900 md:text-5xl">
+            Conheça os componentes do nosso protótipo
+          </h2>
 
-        <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
+          <p className="text-base leading-7 text-slate-600 md:text-lg">
+            O Sipdus integra componentes eletrônicos para coletar
+            sinais ópticos, processar informações e explorar formas
+            mais acessíveis de interação com o dispositivo.
+          </p>
+        </motion.div>
 
-          <div>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {technologies.map((technology, index) => {
+            const Icon = technology.icon;
 
-            <div className="mb-5 text-[11px] font-bold uppercase tracking-[0.2em] text-[#087f93]">
-              03 — Tecnologia
-            </div>
+            return (
+              <motion.article
+                key={technology.name}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.45,
+                  delay: index * 0.1,
+                }}
+                className="group rounded-3xl border border-slate-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              >
+                <ComponentVisual
+                  image={technology.image}
+                  name={technology.name}
+                />
 
-            <h2 className="text-[clamp(44px,6vw,76px)] font-extrabold leading-[0.92] tracking-[-0.06em] text-[#102329]">
-
-              Componentes que
-              <span className="block text-[#08b9d1]">
-                fazem a diferença.
-              </span>
-
-            </h2>
-
-            <p className="mt-7 max-w-[500px] text-base leading-7 text-[#60777d]">
-              O protótipo reúne componentes eletrônicos,
-              sensores ópticos e software em uma única
-              proposta de pesquisa.
-            </p>
-
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-
-            {technologies.map((item, index) => {
-              const Icon = item.icon;
-
-              return (
-                <motion.article
-                  key={item.title}
-                  initial={{
-                    opacity: 0,
-                    y: 20,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  transition={{
-                    delay: index * 0.08,
-                  }}
-                  viewport={{
-                    once: true,
-                  }}
-                  className="rounded-[28px] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-                >
-
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#dff7f9] text-[#087f93]">
+                <div className="px-2 pb-3 pt-5">
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-50 text-cyan-700">
                     <Icon size={22} />
                   </div>
 
-                  <h3 className="mt-6 text-xl font-bold text-[#102329]">
-                    {item.title}
+                  <h3 className="mb-3 text-lg font-bold text-slate-900">
+                    {technology.name}
                   </h3>
 
-                  <p className="mt-3 text-sm leading-6 text-[#60777d]">
-                    {item.text}
+                  <p className="text-sm leading-6 text-slate-600">
+                    {technology.description}
                   </p>
 
-                </motion.article>
-              );
-            })}
-
-          </div>
-
+                  <div className="mt-5 flex items-center gap-2 text-sm font-semibold text-cyan-700">
+                    <span>Componente do protótipo</span>
+                    <ArrowRight
+                      size={16}
+                      className="transition-transform group-hover:translate-x-1"
+                    />
+                  </div>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
 
+        <p className="mt-8 text-sm leading-6 text-slate-500">
+          O protótipo está em desenvolvimento. A estimativa de glicemia
+          depende da calibração e da validação dos dados coletados;
+          os sinais de frequência cardíaca e SpO₂ não medem a glicose
+          diretamente.
+        </p>
       </div>
-
     </section>
   );
 }

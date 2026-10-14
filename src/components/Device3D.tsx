@@ -1,103 +1,65 @@
-import {
-  Suspense,
-  useMemo,
-} from "react";
 
-import {
-  Canvas,
-  useLoader,
-} from "@react-three/fiber";
+import { Suspense, useMemo } from "react";
+import { Canvas } from "@react-three/fiber";
 
 import {
   Center,
   ContactShadows,
   Environment,
-  Float,
   OrbitControls,
+  useGLTF,
+  Html,
 } from "@react-three/drei";
-
-import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 
 import * as THREE from "three";
 
+const BACKGROUND_COLOR = "#102329";
+
 function SipdusModel() {
-  const geometry = useLoader(
-    STLLoader,
-    "/models/sipdus3d.stl"
-  );
+  const { scene } = useGLTF("/models/sipdus3d.glb");
 
-  const scale = useMemo(() => {
-    geometry.computeBoundingBox();
+  const model = useMemo(() => {
+    const clone = scene.clone(true);
 
-    if (!geometry.boundingBox) {
-      return 1;
+    const box = new THREE.Box3().setFromObject(clone);
+    const size = box.getSize(new THREE.Vector3());
+
+    const largestDimension = Math.max(
+      size.x,
+      size.y,
+      size.z
+    );
+
+    if (largestDimension > 0) {
+      clone.scale.multiplyScalar(3.4 / largestDimension);
     }
 
-    const size =
-      new THREE.Vector3();
-
-    geometry.boundingBox.getSize(size);
-
-    const largestDimension =
-      Math.max(
-        size.x,
-        size.y,
-        size.z
-      );
-
-    if (!largestDimension) {
-      return 1;
-    }
-
-    return 3.4 / largestDimension;
-  }, [geometry]);
+    return clone;
+  }, [scene]);
 
   return (
-    <Float
-      speed={1.1}
-      rotationIntensity={0.06}
-      floatIntensity={0.15}
-    >
-      <Center>
-        <mesh
-          geometry={geometry}
-          scale={scale}
-          castShadow
-          receiveShadow
-        >
-          <meshStandardMaterial
-            color="#62dce5"
-            roughness={0.27}
-            metalness={0.03}
-            emissive="#087f93"
-            emissiveIntensity={0.08}
-            side={THREE.DoubleSide}
-          />
-        </mesh>
-      </Center>
-    </Float>
+    <Center>
+      <primitive object={model} />
+    </Center>
   );
 }
 
 function LoadingModel() {
   return (
-    <mesh>
-      <boxGeometry
-        args={[3.2, 1.5, 2.2]}
-      />
-
-      <meshStandardMaterial
-        color="#62dce5"
-        roughness={0.3}
-      />
-    </mesh>
+    <Html center>
+      <div className="text-sm text-cyan-100">
+        Carregando modelo 3D...
+      </div>
+    </Html>
   );
 }
 
 export default function Device3D() {
   return (
-    <div className="h-[430px] w-full lg:h-[570px]">
-
+    <div
+      className="h-[430px] w-full overflow-hidden rounded-3xl lg:h-[570px]"
+      style={{ backgroundColor: BACKGROUND_COLOR }}
+    >
       <Canvas
         shadows
         dpr={[1, 2]}
@@ -107,60 +69,78 @@ export default function Device3D() {
         }}
         gl={{
           antialias: true,
-          toneMapping:
-            THREE.ACESFilmicToneMapping,
-          outputColorSpace:
-            THREE.SRGBColorSpace,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          outputColorSpace: THREE.SRGBColorSpace,
         }}
       >
-
+        {/* Fundo exato: #102329 */}
         <color
           attach="background"
-          args={["#dff7f9"]}
+          args={[BACKGROUND_COLOR]}
         />
 
-        <ambientLight intensity={1.8} />
+        {/* Iluminação ambiente */}
+        <ambientLight intensity={1.2} />
 
+        {/* Luz principal branca */}
         <directionalLight
           position={[5, 7, 5]}
-          intensity={3}
+          intensity={2.8}
+          color="#ffffff"
           castShadow
         />
 
+        {/* Luz frontal para revelar detalhes */}
+        <directionalLight
+          position={[0, 2, 6]}
+          intensity={1.8}
+          color="#e4faff"
+        />
+
+        {/* Luz lateral ciano */}
         <directionalLight
           position={[-4, 3, -4]}
-          intensity={1.3}
+          intensity={2.0}
+          color="#55dfff"
         />
 
+        {/* Reflexo superior */}
         <pointLight
-          position={[0, 3, 3]}
+          position={[0, 4, 2]}
           intensity={1.2}
-          color="#08b9d1"
+          color="#55dfff"
         />
 
-        <Environment preset="studio" />
+        <Environment
+          preset="studio"
+          environmentIntensity={0.65}
+        />
 
         <Suspense fallback={<LoadingModel />}>
           <SipdusModel />
         </Suspense>
 
+        {/* Sombra de contato */}
         <ContactShadows
           position={[0, -1.8, 0]}
-          opacity={0.25}
+          opacity={0.4}
           scale={6}
-          blur={2}
+          blur={2.5}
           far={5}
+          color="#000000"
         />
 
+        {/* Rotação e zoom */}
         <OrbitControls
-          enableZoom={false}
+          enableZoom
           enablePan={false}
           rotateSpeed={0.75}
           minPolarAngle={Math.PI / 3.2}
           maxPolarAngle={Math.PI / 1.7}
         />
-
       </Canvas>
     </div>
   );
 }
+
+useGLTF.preload("/models/sipdus3d.glb");

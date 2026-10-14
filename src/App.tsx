@@ -6,6 +6,8 @@ import Technology from "./components/Technology";
 import Accessibility from "./components/Accessibility";
 import Research from "./components/Research";
 import Team from "./components/Team";
+import AppShowcase from "./components/AppShowcase";
+import Impact from "./components/Impact";
 import Footer from "./components/Footer";
 import AccessibilityMenu from "./components/AccessibilityMenu";
 import VLibras from "./components/VLibras";
@@ -80,11 +82,15 @@ export default function App() {
 
           <ResearchQuestion />
 
-          <HowItWorks />
-
           <Technology />
 
+          <HowItWorks />
+
+          <AppShowcase />
+
           <Accessibility />
+
+          <Impact />
 
           <Research />
 

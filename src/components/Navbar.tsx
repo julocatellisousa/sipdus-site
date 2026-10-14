@@ -8,30 +8,13 @@ import {
 } from "react";
 
 const links = [
-  {
-    label: "Início",
-    href: "#inicio",
-  },
-  {
-    label: "Projeto",
-    href: "#projeto",
-  },
-  {
-    label: "Tecnologia",
-    href: "#tecnologia",
-  },
-  {
-    label: "Acessibilidade",
-    href: "#acessibilidade",
-  },
-  {
-    label: "Pesquisa",
-    href: "#pesquisa",
-  },
-  {
-    label: "Equipe",
-    href: "#equipe",
-  },
+  { label: "Introdução", href: "#inicio" },
+  { label: "Pergunta", href: "#pergunta" },
+  { label: "Componentes", href: "#tecnologia" },
+  { label: "Metodologia", href: "#metodologia" },
+  { label: "Aplicativo", href: "#aplicativo" },
+  { label: "Acessibilidade", href: "#acessibilidade" },
+  { label: "Impactos", href: "#impactos" },
 ];
 
 export default function Navbar() {
@@ -76,7 +59,7 @@ export default function Navbar() {
           href="#pergunta"
           className="hidden rounded-full bg-[#102329] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#08b9d1] md:block"
         >
-          Conheça a pesquisa
+          Nossa pergunta
         </a>
 
         {/* MOBILE */}
