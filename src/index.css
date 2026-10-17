@@ -277,3 +277,183 @@ html.tritanopia #site-content {
     overflow-x: hidden;
   }
 }
+
+
+/* =========================================================
+   SIPDUS — SEÇÃO DE VÍDEO
+   ========================================================= */
+
+.video-section {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(64px, 8vw, 112px) 24px;
+  background: var(--sipdus-gray);
+  color: var(--sipdus-text);
+}
+
+.video-section__container {
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+.video-section__header {
+  max-width: 760px;
+  margin: 0 auto 42px;
+  text-align: center;
+}
+
+.video-section__eyebrow {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: var(--sipdus-cyan-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.video-section__title {
+  margin: 0;
+  color: var(--sipdus-black);
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 750;
+  line-height: 1.14;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.video-section__title span {
+  color: var(--sipdus-cyan-dark);
+}
+
+.video-section__description {
+  max-width: 640px;
+  margin: 22px auto 0;
+  color: var(--sipdus-muted);
+  font-size: 1rem;
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+
+/* Player de vídeo */
+
+.video-section__player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--sipdus-gray-dark);
+  border-radius: 20px;
+  background: var(--sipdus-black);
+  box-shadow: 0 20px 55px rgb(16 35 41 / 12%);
+}
+
+.video-section__player iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Informações abaixo do vídeo */
+
+.video-section__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.video-section__indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--sipdus-muted);
+  font-size: 0.9rem;
+}
+
+.video-section__indicator-dot {
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--sipdus-red);
+}
+
+.video-section__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 10px 19px;
+  border: 1px solid var(--sipdus-cyan-dark);
+  border-radius: 999px;
+  color: var(--sipdus-cyan-dark);
+  background: var(--sipdus-white);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.video-section__link:hover {
+  border-color: var(--sipdus-cyan-dark);
+  background: var(--sipdus-cyan-dark);
+  color: var(--sipdus-white);
+}
+
+.video-section__link:focus-visible {
+  outline: 3px solid var(--sipdus-red);
+  outline-offset: 4px;
+}
+
+/* Responsividade */
+
+@media (max-width: 600px) {
+  .video-section {
+    padding: 64px 18px;
+  }
+
+  .video-section__header {
+    margin-bottom: 30px;
+  }
+
+  .video-section__title {
+    letter-spacing: -0.025em;
+  }
+
+  .video-section__description {
+    margin-top: 16px;
+    line-height: 1.7;
+  }
+
+  .video-section__player {
+    border-radius: 12px;
+  }
+
+  .video-section__footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .video-section__link {
+    width: 100%;
+  }
+}
+
+/* Respeita a preferência por movimento reduzido */
+
+@media (prefers-reduced-motion: reduce) {
+  .video-section__link {
+    transition: none;
+  }
+}

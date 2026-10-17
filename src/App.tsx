@@ -8,6 +8,7 @@ import Research from "./components/Research";
 import Team from "./components/Team";
 import AppShowcase from "./components/AppShowcase";
 import Impact from "./components/Impact";
+import VideoSection from "./components/VideoSection";
 import Footer from "./components/Footer";
 import AccessibilityMenu from "./components/AccessibilityMenu";
 import VLibras from "./components/VLibras";
@@ -73,7 +74,7 @@ export default function App() {
       {/* Filtros de percepção das cores */}
       <ColorVisionFilters />
 
-      {/* Todo o site que será alterado pelos filtros */}
+      {/* Conteúdo do site afetado pelos filtros */}
       <div id="site-content">
         <Navbar />
 
@@ -88,6 +89,8 @@ export default function App() {
 
           <AppShowcase />
 
+          <VideoSection />
+
           <Accessibility />
 
           <Impact />
@@ -100,7 +103,7 @@ export default function App() {
         <Footer />
       </div>
 
-      {/* Ficam fora do filtro para continuarem utilizáveis */}
+      {/* Recursos de acessibilidade fora dos filtros */}
       <AccessibilityMenu />
 
       <VLibras />

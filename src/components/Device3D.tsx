@@ -5,7 +5,6 @@ import { Canvas } from "@react-three/fiber";
 import {
   Center,
   ContactShadows,
-  Environment,
   OrbitControls,
   useGLTF,
   Html,
@@ -61,7 +60,6 @@ export default function Device3D() {
       style={{ backgroundColor: BACKGROUND_COLOR }}
     >
       <Canvas
-        shadows
         dpr={[1, 2]}
         camera={{
           position: [4.5, 3.1, 5],
@@ -69,68 +67,58 @@ export default function Device3D() {
         }}
         gl={{
           antialias: true,
-          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMapping: THREE.NoToneMapping,
           outputColorSpace: THREE.SRGBColorSpace,
         }}
       >
-        {/* Fundo exato: #102329 */}
+        {/* Fundo original */}
         <color
           attach="background"
           args={[BACKGROUND_COLOR]}
         />
 
-        {/* Iluminação ambiente */}
-        <ambientLight intensity={1.2} />
-
-        {/* Luz principal branca */}
-        <directionalLight
-          position={[5, 7, 5]}
-          intensity={2.8}
+        {/* Iluminação uniforme e sem excesso de brilho */}
+        <ambientLight
+          intensity={1.0}
           color="#ffffff"
-          castShadow
         />
 
-        {/* Luz frontal para revelar detalhes */}
+        {/* Luz frontal principal */}
         <directionalLight
-          position={[0, 2, 6]}
-          intensity={1.8}
-          color="#e4faff"
-        />
-
-        {/* Luz lateral ciano */}
-        <directionalLight
-          position={[-4, 3, -4]}
-          intensity={2.0}
-          color="#55dfff"
-        />
-
-        {/* Reflexo superior */}
-        <pointLight
-          position={[0, 4, 2]}
+          position={[2, 4, 6]}
           intensity={1.2}
-          color="#55dfff"
+          color="#ffffff"
         />
 
-        <Environment
-          preset="studio"
-          environmentIntensity={0.65}
+        {/* Preenchimento frontal suave */}
+        <directionalLight
+          position={[-4, 1, 5]}
+          intensity={0.4}
+          color="#e6f7fa"
+        />
+
+        {/* Contorno ciano discreto */}
+        <directionalLight
+          position={[-3, 2, -4]}
+          intensity={0.5}
+          color="#45c9dc"
         />
 
         <Suspense fallback={<LoadingModel />}>
           <SipdusModel />
         </Suspense>
 
-        {/* Sombra de contato */}
+        {/* Sombra sutil para preservar a profundidade */}
         <ContactShadows
           position={[0, -1.8, 0]}
-          opacity={0.4}
-          scale={6}
-          blur={2.5}
+          opacity={0.16}
+          scale={5}
+          blur={3}
           far={5}
           color="#000000"
         />
 
-        {/* Rotação e zoom */}
+        {/* Mantém a interação com o modelo */}
         <OrbitControls
           enableZoom
           enablePan={false}

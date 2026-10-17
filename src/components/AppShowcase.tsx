@@ -11,7 +11,7 @@ const appImages = Array.from({ length: 9 }, (_, index) => {
   const number = String(index + 1).padStart(2, "0");
 
   return {
-    src: `/images/app/app-${number}.jpeg`,
+    src: `/images/app/app-${number}.png`,
     alt: `Captura de tela ${index + 1} do aplicativo Sipdus`,
     number: index + 1,
   };
@@ -81,7 +81,7 @@ export default function AppCarousel() {
                   </p>
                   <p className="text-sm">
                     Confira se o arquivo{" "}
-                    <code>{`app-${String(currentImage.number).padStart(2, "0")}.jpeg`}</code>{" "}
+                    <code>{`app-${String(currentImage.number).padStart(2, "0")}.png`}</code>{" "}
                     está na pasta <code>public/images/app/</code>.
                   </p>
                 </motion.div>
