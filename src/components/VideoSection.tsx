@@ -29,7 +29,7 @@ export default function VideoSection() {
 
         <div className="video-section__player">
           <iframe
-            src="https://www.youtube-nocookie.com/embed/dQeLhbVrA38"
+            src="https://www.youtube-nocookie.com/embed/4xSgCIuY9Hs"
             title="Vídeo de apresentação do projeto Sipdus"
             loading="lazy"
             referrerPolicy="strict-origin-when-cross-origin"
@@ -49,7 +49,7 @@ export default function VideoSection() {
 
           <a
             className="video-section__link"
-            href="https://youtu.be/dQeLhbVrA38"
+            href="https://youtu.be/4xSgCIuY9Hs?si=V3UmBTBNZ7-JZQcF"
             target="_blank"
             rel="noopener noreferrer"
           >
