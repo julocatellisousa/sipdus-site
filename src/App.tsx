@@ -1,3 +1,4 @@
+
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import ResearchQuestion from "./components/ResearchQuestion";
@@ -79,21 +80,24 @@ export default function App() {
         <Navbar />
 
         <main>
+          {/* Primeiras duas partes mantidas */}
           <Hero />
 
           <ResearchQuestion />
 
+          {/* Nova sequência */}
           <Technology />
-
-          <HowItWorks />
-
-          <AppShowcase />
-
-          <VideoSection />
 
           <Accessibility />
 
+            <div style={{ height: "48px" }} aria-hidden="true" />
+
+          <HowItWorks />
+          <AppShowcase />
+
           <Impact />
+
+          <VideoSection />
 
           <Research />
 
